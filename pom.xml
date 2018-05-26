@@ -29,11 +29,6 @@
       <version>1.12.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>io.pixeloutlaw</groupId>
-      <artifactId>facecore</artifactId>
-      <version>3.0.3-SNAPSHOT</version>
-    </dependency>
   </dependencies>
 
   <build>
