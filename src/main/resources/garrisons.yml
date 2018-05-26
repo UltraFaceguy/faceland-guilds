@@ -1,0 +1,14 @@
+garrisonname:
+  display-name: 'Meme Castle Garrison'
+  capture-day: 'SUNDAY'
+  capture-time: '12:30'
+  capture-difficulty: 1
+  capture-radius: 15
+  location: locationgoeshere
+garrisonname2:
+  display-name: 'Wheat Field Garrison'
+  capture-day: 'SUNDAY'
+  capture-time: '12:45'
+  capture-difficulty: 3
+  capture-radius: 10
+  location: locationgoeshere
