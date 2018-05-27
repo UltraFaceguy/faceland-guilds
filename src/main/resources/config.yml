@@ -3,3 +3,6 @@ database:
   pass: pass
   name: guilds
   address: localhost:3306
+storage:
+  guilds: mysql
+  players: mysql
