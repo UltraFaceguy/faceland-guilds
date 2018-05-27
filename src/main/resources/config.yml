@@ -1,0 +1,5 @@
+database:
+  user: user
+  pass: pass
+  name: guilds
+  address: localhost:3306
