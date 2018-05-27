@@ -12,37 +12,34 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum Lang {
-	
-	NO_PERMS("&cYou don't have &f{0} &cto do that."),
-    PLAYER_NOT_ONLINE("{0} &cis not online.")
 
-	;
+    NO_PERMS("&cYou don't have &f{0} &cto do that."),
+    PLAYER_NOT_ONLINE("{0} &cis not online.");
 
-	private String message;
+    private String message;
 
-	private static ConfigWrapper configWrapper;
-	private static FileConfiguration c;
+    private static ConfigWrapper configWrapper;
+    private static FileConfiguration c;
 
-	Lang(final String... def) {
-		this.message = Arrays.stream(def).collect(Collectors.joining("\n"));
-	}
-
-	private String getMessage() {
-	    return this.message;
+    Lang(final String... def) {
+        this.message = Arrays.stream(def).collect(Collectors.joining("\n"));
     }
-
-	public String getPath() {
-		return this.name();
-	}
+    private String getMessage() {
+        return this.message;
+    }
+    public String getPath() {
+        return this.name();
+    }
 
     /**
      * Replaces variables in message with given arguments
-     * @param s String to format
+     *
+     * @param s       String to format
      * @param objects Arguments to replace
      * @return Colored & formatted string
      */
-	private String format(String s, Object... objects) {
-	    for (int i = 0; i < objects.length; i++)
+    private String format(String s, Object... objects) {
+        for (int i = 0; i < objects.length; i++)
             s = s.replace("{" + i + "}", String.valueOf(objects[i]));
 
         return Msg.color(s);
@@ -50,15 +47,16 @@ public enum Lang {
 
     /**
      * Turn the lang value into a string object with args replaced
+     *
      * @param objects Arguments to replace
      * @return String value of message
      */
     public String asString(Object... objects) {
-	    Optional<String> opt = Optional.empty();
-	    if (c.contains(this.name())) {
-	        if (c.isList(this.name()))
+        Optional<String> opt = Optional.empty();
+        if (c.contains(this.name())) {
+            if (c.isList(this.name()))
                 opt = Optional.ofNullable(c.getStringList(this.name()).stream().collect(Collectors.joining("\n")));
-	        else if (c.isString(this.name()))
+            else if (c.isString(this.name()))
                 opt = Optional.ofNullable(c.getString(this.name()));
         }
 
@@ -67,11 +65,12 @@ public enum Lang {
 
     /**
      * Sends a lang value to a player after parsing placeholders and arguments
+     *
      * @param player Player to send the message to
-     * @param args Arguments to replace
+     * @param args   Arguments to replace
      */
     public void send(Player player, Object... args) {
-	    String message = PlaceholderAPI.setPlaceholders(player, asString(args));
+        String message = PlaceholderAPI.setPlaceholders(player, asString(args));
         Arrays.stream(message.split("\n")).forEach(player::sendMessage);
     }
 
@@ -80,14 +79,14 @@ public enum Lang {
      * Only replaces PAPI placeholders if sender is a player
      */
     public void send(CommandSender sender, Object... args) {
-	    if (sender instanceof Player)
-	        send((Player) sender, args);
-	    else
-	        Arrays.stream(asString(args).split("\n")).forEach(sender::sendMessage);
+        if (sender instanceof Player)
+            send((Player) sender, args);
+        else
+            Arrays.stream(asString(args).split("\n")).forEach(sender::sendMessage);
     }
 
-	public static ConfigWrapper getConfigWrapper() {
-	    return configWrapper;
+    public static ConfigWrapper getConfigWrapper() {
+        return configWrapper;
     }
 
     public static boolean init(ConfigWrapper wrapper) {
@@ -116,7 +115,7 @@ public enum Lang {
     }
 
     public static void reload() {
-	    configWrapper.loadConfig();
-	    c = configWrapper.getConfig();
+        configWrapper.loadConfig();
+        c = configWrapper.getConfig();
     }
 }
