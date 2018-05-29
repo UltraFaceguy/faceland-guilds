@@ -4,7 +4,6 @@ import java.util.List;
 import org.bukkit.DyeColor;
 
 public class Guild {
-  private boolean dirty;
   private String name;
   private GuildPlayer master;
   private List<GuildPlayer> memberList;
@@ -12,12 +11,14 @@ public class Guild {
   private double vault;
   private DyeColor primaryColor;
   private DyeColor secondaryColor;
+  private boolean dirty;
 
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
+    this.dirty = true;
     this.name = name;
   }
 
@@ -26,6 +27,7 @@ public class Guild {
   }
 
   public void setMaster(GuildPlayer master) {
+    this.dirty = true;
     this.master = master;
   }
 
@@ -34,6 +36,7 @@ public class Guild {
   }
 
   public void setMemberList(List<GuildPlayer> memberList) {
+    this.dirty = true;
     this.memberList = memberList;
   }
 
@@ -42,6 +45,7 @@ public class Guild {
   }
 
   public void setGuildLevel(int guildLevel) {
+    this.dirty = true;
     this.guildLevel = guildLevel;
   }
 
@@ -50,6 +54,7 @@ public class Guild {
   }
 
   public void setVault(double vault) {
+    this.dirty = true;
     this.vault = vault;
   }
 
@@ -58,6 +63,7 @@ public class Guild {
   }
 
   public void setPrimaryColor(DyeColor primaryColor) {
+    this.dirty = true;
     this.primaryColor = primaryColor;
   }
 
@@ -66,6 +72,7 @@ public class Guild {
   }
 
   public void setSecondaryColor(DyeColor secondaryColor) {
+    this.dirty = true;
     this.secondaryColor = secondaryColor;
   }
 
