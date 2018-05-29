@@ -28,7 +28,7 @@ public class GuildManager {
   }
 
   public void onUnload() {
-    storage.saveGuilds();
+    storage.saveGuilds(guildCache.values());
     guildCache.clear();
     storage.onUnload();
     storage = null;
