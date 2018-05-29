@@ -4,6 +4,7 @@ import java.util.List;
 import org.bukkit.DyeColor;
 
 public class Guild {
+  private boolean dirty;
   private String name;
   private GuildPlayer master;
   private List<GuildPlayer> memberList;
@@ -66,5 +67,13 @@ public class Guild {
 
   public void setSecondaryColor(DyeColor secondaryColor) {
     this.secondaryColor = secondaryColor;
+  }
+
+  public boolean isDirty() {
+    return dirty;
+  }
+
+  public void setDirty(boolean dirty) {
+    this.dirty = dirty;
   }
 }
