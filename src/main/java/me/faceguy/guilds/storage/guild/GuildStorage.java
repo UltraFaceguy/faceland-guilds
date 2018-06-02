@@ -8,8 +8,10 @@ import me.faceguy.guilds.managers.GuildManager;
 public interface GuildStorage {
   void onLoad(GuildManager manager);
   void onUnload();
+  boolean containsGuild(String name);
   int saveGuilds(Collection<Guild> guilds);
   Set<Guild> loadGuilds();
   boolean saveGuild(Guild guild);
   Guild loadGuild(String name);
+  boolean deleteGuild(String name);
 }

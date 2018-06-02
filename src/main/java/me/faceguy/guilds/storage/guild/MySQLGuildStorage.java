@@ -10,8 +10,10 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import me.faceguy.guilds.data.Guild;
+import me.faceguy.guilds.data.GuildData;
 import me.faceguy.guilds.managers.GuildManager;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -52,6 +54,20 @@ public class MySQLGuildStorage implements GuildStorage {
     db = null;
   }
 
+  @Override
+  public boolean containsGuild(String name) {
+
+    try {
+
+      List<String> results = db.getFirstColumnResults("SELECT guild FROM guilds WHERE name = ? LIMIT 1", name);
+      return true;
+      // we will catch any excption since it may not be a SQLException thrown
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   /**
    * Save a guild to database.
    * This method should be called async!
@@ -60,13 +76,13 @@ public class MySQLGuildStorage implements GuildStorage {
    */
   @Override
   public boolean saveGuild(Guild guild) {
-    if (!guild.isDirty()) return false;
+    if (guild == null || guild.getData(GuildData.NAME) == null || !guild.isDirty()) return false;
     try {
       db.executeUpdate(
           "INSERT INTO `guilds` (`name`, `guild`) " +
               "VALUES (?, ?)  ON DUPLICATE KEY " +
               "UPDATE guild = VALUES(guild)",
-          guild.getName(), gson.toJson(guild));
+          guild.getData(GuildData.NAME), gson.toJson(guild));
       guild.setDirty(false);
       return true;
       // we will catch any excption since it may not be a SQLException thrown
@@ -102,6 +118,11 @@ public class MySQLGuildStorage implements GuildStorage {
       e.printStackTrace();
       return null;
     }
+  }
+
+  @Override
+  public boolean deleteGuild(String name) {
+    return false;
   }
 
   /**
